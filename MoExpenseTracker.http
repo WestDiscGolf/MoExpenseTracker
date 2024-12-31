@@ -1,0 +1,131 @@
+@MoExpenseTracker_HostAddress=http://localhost:5158
+
+# after sign up or login replace the placeholder, JWT, with the auth token
+@MoAuthToken=JWT
+
+
+### Base test
+GET {{MoExpenseTracker_HostAddress}}/hello
+
+###
+GET {{MoExpenseTracker_HostAddress}}/hello/-1
+
+###
+POST {{MoExpenseTracker_HostAddress}}/hello
+Content-Type: application/json
+
+{
+    "username": "Username",
+    "password": "Password"
+}
+
+#
+#
+#
+#
+#
+# Actual api starts from here
+
+## auth
+
+### Signup
+POST {{MoExpenseTracker_HostAddress}}/auth/signup
+Content-Type: application/json
+
+{
+    "name":"Peter mann",
+    "email": "petermangmail.com",
+    "password": "peterman$"
+}
+
+### Login
+POST {{MoExpenseTracker_HostAddress}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "goosegeese@gmail.com",
+    "password": "GooseGeese"
+}
+
+
+### Account
+
+### Authenticated route (required auth token)
+GET {{MoExpenseTracker_HostAddress}}/accounts
+Authorization: Bearer {{MoAuthToken}}
+
+### Update user profile
+PUT {{MoExpenseTracker_HostAddress}}/accounts
+Authorization: Bearer {{MoAuthToken}}
+Content-Type: application/json
+
+{
+    "name": "Gooose Geese",
+    "email": "goosegeese@gmail.com"
+}
+
+
+### category
+
+### Create Category
+POST {{MoExpenseTracker_HostAddress}}/categories
+Authorization: Bearer {{MoAuthToken}}
+Content-Type: application/json
+
+{
+    "name": "Money savings",
+    "description": "Expenses in savings"
+}
+
+### List Category
+GET {{MoExpenseTracker_HostAddress}}/categories
+Authorization: Bearer {{MoAuthToken}}
+
+### Read Category
+GET {{MoExpenseTracker_HostAddress}}/categories/1
+Authorization: Bearer {{MoAuthToken}}
+
+### Update Category
+PUT {{MoExpenseTracker_HostAddress}}/categories/1
+Authorization: Bearer {{MoAuthToken}}
+Content-Type: application/json
+
+{
+    "name": "Daily expenditure",
+    "description": "These are the expense I make on a daily bases"
+}
+
+
+### expense
+
+### Create Expense
+POST {{MoExpenseTracker_HostAddress}}/expenses
+Authorization: Bearer {{MoAuthToken}}
+Content-Type: application/json
+
+{
+    "categoryId": 5,
+    "amount": 200,
+    "description": "MTN - 90Gb data bundle",
+    "expenseDate": "28/12/2024"
+}
+
+### List Expense
+GET {{MoExpenseTracker_HostAddress}}/expenses
+Authorization: Bearer {{MoAuthToken}}
+
+### Read Expense
+GET {{MoExpenseTracker_HostAddress}}/expenses/5
+Authorization: Bearer {{MoAuthToken}}
+
+### Update Expense
+PUT {{MoExpenseTracker_HostAddress}}/expenses/5
+Authorization: Bearer {{MoAuthToken}}
+Content-Type: application/json
+
+{
+    "categoryId": 5,
+    "amount": 170,
+    "description": "Custom made socket with two holes",
+    "expenseDate": "28/12/2024"
+}

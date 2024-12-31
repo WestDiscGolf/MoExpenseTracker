@@ -480,4 +480,5 @@ $RECYCLE.BIN/
 # app
 MoExpenseTracker.sln
 Properties
-appsettings.*
+appsettings.Production.json
+appsettings.Development.json
