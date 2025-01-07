@@ -17,8 +17,6 @@ class AccountController(AccountDao accountDao, AuthDao authDao)
 
         // Find the claims for id and email
         var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
-        // email has been removed from the User claims
-        // var userEmail = httpContext.User.FindFirst(ClaimTypes.Email)?.Value;
 
         var user = await accountDao.ReadProfile(userId);
         if (user == null)

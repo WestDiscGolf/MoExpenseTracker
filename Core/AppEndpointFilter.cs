@@ -5,16 +5,16 @@ namespace MoExpenseTracker.Core;
 
 class AppEndpointFilter<T> : IEndpointFilter
 {
-    public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext invocationContext, EndpointFilterDelegate next)
+    public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
     {
-        var validator = invocationContext.HttpContext.RequestServices.GetService<IValidator<T>>();
+        var validator = context.HttpContext.RequestServices.GetService<IValidator<T>>();
         if (validator is null)
         {
             return Results.BadRequest<FailureResponse>(new("Could not find type to validate here"));
         }
 
         // from here we know that the dto is at position 2
-        var dto = invocationContext.Arguments
+        var dto = context.Arguments
             .OfType<T>()
             .FirstOrDefault(t => t?.GetType() == typeof(T));
 
@@ -29,6 +29,6 @@ class AppEndpointFilter<T> : IEndpointFilter
             return Results.BadRequest<FailureResponse>(new(result.Errors[0].ToString()));
         }
 
-        return await next(invocationContext);
+        return await next(context);
     }
 }

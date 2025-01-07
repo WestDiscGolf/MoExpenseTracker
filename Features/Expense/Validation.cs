@@ -78,4 +78,3 @@ class ExpenseUpdateValidation : AbstractValidator<UpdateExpenseDto>
             .WithMessage("ExpenseDate must be in the format dd/MM/yyyy when provided.");
     }
 }
-

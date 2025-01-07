@@ -12,10 +12,6 @@ static class AccountEndpoint
         userRoute.MapGet("/", async (AccountController controller, HttpContext context) =>
         {
             return await controller.ReadProfile(context);
-            // throw new Exception("Huhu");
-            // throw new AppException("We threw some cool error", StatusCodes.Status305UseProxy);
-            // throw new AppException("We threw some cool error");
-
         }).RequireAuthorization();
 
         userRoute.MapPut("/", async (
