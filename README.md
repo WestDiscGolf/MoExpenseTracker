@@ -40,7 +40,7 @@ How to use ef core and relationship (I didn't really much of these but you'd und
 
 - [Getting Started with Entity Framework Core in .NET](https://www.youtube.com/watch?v=2t88FOeQ898) by Nick Chapsas
 - [DbContext, Code First Migrations and Database Creation with EFCore](https://www.youtube.com/watch?v=A4tpHy__LN0) by ISeeSharp
-- [1 to 1, 1 to Many and Many to Many Relationships with EFCore in 2023](https://www.youtube.com/watch?v=9sXXfq0GDYI)  by ISeeSharp
+- [1 to 1, 1 to Many and Many to Many Relationships with EFCore in 2023](https://www.youtube.com/watch?v=9sXXfq0GDYI) by ISeeSharp
 
 How to connect to a database
 
@@ -60,12 +60,11 @@ How to hash password - hash and verify
 How to handle exceptions (global)
 
 - [Global Exception Handling in Asp.Net Core Web API using IExceptionHandler](https://www.youtube.com/watch?v=bEYlNuwTSms) by Nitish Kaushik
-- [The New Global Error Handling in ASP.NET Core 8](https://www.youtube.com/watch?v=uOEDM0c9BNI)  by Milan Jovanović
+- [The New Global Error Handling in ASP.NET Core 8](https://www.youtube.com/watch?v=uOEDM0c9BNI) by Milan Jovanović
 
 How to route endpoints (group routes)
 
-- [NET Core 7 : Routing - UseRouting vs UseEndpoints // Map vs MapGet vs MapPost](https://www.youtube.com/watch?v=NCZzYxzHrN8) by hikitoc
--[How To Organize Minimal API Endpoints Inside Of Clean Architecture](https://www.youtube.com/watch?v=GCuVC_qDOV4)  by Milan Jovanović
+- [NET Core 7 : Routing - UseRouting vs UseEndpoints // Map vs MapGet vs MapPost](https://www.youtube.com/watch?v=NCZzYxzHrN8) by hikitoc -[How To Organize Minimal API Endpoints Inside Of Clean Architecture](https://www.youtube.com/watch?v=GCuVC_qDOV4) by Milan Jovanović
 
 How to create extension methods
 
@@ -83,3 +82,21 @@ MISC (extra information, won't hurt to watch, read or run through)
 - [Back-end Web Development with .NET](https://www.youtube.com/playlist?list=PLdo4fOcmZ0oWunQnm3WnZxJrseIw2zSAk) by dotnet (dotnet)
 - [IResult/Results/TypedResult or IActionResult/ActionResult/controllerBase methods?](https://www.reddit.com/r/dotnet/comments/172wumc/iresultresultstypedresult_or/) (difference between IResults, ITypeResults, ...)
 - [.NET dependency injection](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection#service-lifetimes) (difference between scoped, singleton, transcient)
+
+## V1 updates
+
+These are responses I had from reddit and discord (dotnet/csharp) group about this app and I am looking forward to integrate them in this version of the app.
+
+- api versioning
+- for searching add
+  - pagination
+  - filters and sorting
+- rename controllers into handlers (not to miscommunicate that they are class "controllers")
+- refactor the user id check in the request handlers and pass it as a dependency or endpoint filter
+- use dateonly for the expense data
+- use a middleware or some sort to validate the authentication and don't inject the http context
+- lowercase user data on insert and updated, especiall email, name, description, etc
+- return every created/updated record, this way an extra db call will be saved
+- reduce the logic in the request handlers
+- when checking if the email is used on profile update, compare the user id as rather if the result is not null
+- Learn SQL scripting
