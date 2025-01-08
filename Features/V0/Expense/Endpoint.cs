@@ -12,28 +12,18 @@ static class ExpenseEndpoint
             return await next(context);
         });
 
-        expenseRoute.MapPost("/", async (ExpenseController controller, HttpContext httpContext, CreateExpenseDto dto) =>
-        {
-            return await controller.CreateExpense(httpContext, dto);
-        })
-        .AddEndpointFilter<AppEndpointFilter<CreateExpenseDto>>()
-        .RequireAuthorization();
+        expenseRoute.MapPost("/", RequestHandlers.CreateExpense)
+            .AddEndpointFilter<AppEndpointFilter<CreateExpenseDto>>()
+            .RequireAuthorization();
 
-        expenseRoute.MapGet("/", async (ExpenseController controller, HttpContext httpContext) =>
-        {
-            return await controller.ListExpenses(httpContext);
-        }).RequireAuthorization();
+        expenseRoute.MapGet("/", RequestHandlers.ListExpenses)
+            .RequireAuthorization();
 
-        expenseRoute.MapGet("/{id:int}", async (ExpenseController controller, HttpContext httpContext, int id) =>
-        {
-            return await controller.ReadExpense(httpContext, id);
-        }).RequireAuthorization();
+        expenseRoute.MapGet("/{id:int}", RequestHandlers.ReadExpense)
+            .RequireAuthorization();
 
-        expenseRoute.MapPut("/{id:int}", async (ExpenseController controller, HttpContext httpContext, int id, UpdateExpenseDto dto) =>
-        {
-            return await controller.UpdateExpense(httpContext, id, dto);
-        })
-        .AddEndpointFilter<AppEndpointFilter<UpdateExpenseDto>>()
-        .RequireAuthorization();
+        expenseRoute.MapPut("/{id:int}", RequestHandlers.UpdateExpense)
+            .AddEndpointFilter<AppEndpointFilter<UpdateExpenseDto>>()
+            .RequireAuthorization();
     }
 }

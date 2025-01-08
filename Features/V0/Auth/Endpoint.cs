@@ -8,17 +8,11 @@ static class AuthEndpoint
     {
         var authRoute = app.MapGroup("/auth");
 
-        authRoute.MapPost("/signup", async (AuthController controller, SignupDto dto) =>
-        {
-            return await controller.Signup(dto);
-        });
+        authRoute.MapPost("/signup", RequestHandlers.Signup);
 
-        authRoute.MapPost("/login", async (AuthController controller, LoginDto dto) =>
+        authRoute.MapPost("/login", RequestHandlers.Login).AddEndpointFilter(async (invocationContext, next) =>
         {
-            return await controller.Login(dto);
-        }).AddEndpointFilter(async (invocationContext, next) =>
-        {
-            var dto = invocationContext.GetArgument<LoginDto>(1);
+            var dto = invocationContext.GetArgument<LoginDto>(3);
             if (dto is null)
             {
                 return Results.BadRequest<FailureResponse>(new("Request body required"));

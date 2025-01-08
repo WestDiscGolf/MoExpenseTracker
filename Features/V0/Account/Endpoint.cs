@@ -1,7 +1,3 @@
-
-using FluentValidation;
-
-
 namespace MoExpenseTracker.Features.V0.Account;
 
 static class AccountEndpoint
@@ -10,18 +6,8 @@ static class AccountEndpoint
     {
         var userRoute = app.MapGroup("/accounts");
 
-        userRoute.MapGet("/", async (AccountController controller, HttpContext context) =>
-        {
-            return await controller.ReadProfile(context);
-        }).RequireAuthorization();
+        userRoute.MapGet("/", RequestHandlers.ReadProfile).RequireAuthorization();
 
-        userRoute.MapPut("/", async (
-            IValidator<UpdateProfileDto> validator,
-            AccountController controller,
-            HttpContext context,
-            UpdateProfileDto dto) =>
-        {
-            return await controller.UpdateProfile(validator, context, dto);
-        }).RequireAuthorization();
+        userRoute.MapPut("/", RequestHandlers.UpdateProfile).RequireAuthorization();
     }
 }

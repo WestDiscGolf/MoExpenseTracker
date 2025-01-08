@@ -7,9 +7,13 @@ using ExpenseModel = MoExpenseTracker.Models.Expense;
 
 namespace MoExpenseTracker.Features.V0.Expense;
 
-class ExpenseController(ExpenseDao expenseDao, CategoryDao categoryDao)
+static class RequestHandlers
 {
-    public async Task<IResult> CreateExpense(HttpContext httpContext, CreateExpenseDto dto)
+    public static async Task<IResult> CreateExpense(
+        ExpenseDao expenseDao,
+        CategoryDao categoryDao,
+        HttpContext httpContext,
+        CreateExpenseDto dto)
     {
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
         {
@@ -64,7 +68,9 @@ class ExpenseController(ExpenseDao expenseDao, CategoryDao categoryDao)
         return Results.Ok<SuccessResponseWithData<ExpenseModel>>(new(expense));
     }
 
-    public async Task<IResult> ListExpenses(HttpContext httpContext)
+    public static async Task<IResult> ListExpenses(
+        ExpenseDao expenseDao,
+        HttpContext httpContext)
     {
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
         {
@@ -81,7 +87,10 @@ class ExpenseController(ExpenseDao expenseDao, CategoryDao categoryDao)
         return Results.Ok<SuccessResponseWithData<List<ExpenseModel>>>(new(expenses));
     }
 
-    public async Task<IResult> ReadExpense(HttpContext httpContext, int id)
+    public static async Task<IResult> ReadExpense(
+        ExpenseDao expenseDao,
+        HttpContext httpContext,
+        int id)
     {
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
         {
@@ -102,7 +111,12 @@ class ExpenseController(ExpenseDao expenseDao, CategoryDao categoryDao)
         return Results.Ok<SuccessResponseWithData<ExpenseModel>>(new(expense));
     }
 
-    public async Task<IResult> UpdateExpense(HttpContext httpContext, int id, UpdateExpenseDto dto)
+    public static async Task<IResult> UpdateExpense(
+        ExpenseDao expenseDao,
+        CategoryDao categoryDao,
+        HttpContext httpContext,
+        int id,
+        UpdateExpenseDto dto)
     {
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
         {

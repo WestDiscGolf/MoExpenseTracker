@@ -4,9 +4,9 @@ using CategoryModel = MoExpenseTracker.Models.Category;
 
 namespace MoExpenseTracker.Features.V0.Category;
 
-class CategoryController(CategoryDao dao)
+static class RequestHandlers
 {
-    public async Task<IResult> CreateCategory(HttpContext httpContext, CreateCategoryDto dto)
+    public static async Task<IResult> CreateCategory(CategoryDao dao, HttpContext httpContext, CreateCategoryDto dto)
     {
         // Check if the user is authenticated
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
@@ -42,7 +42,7 @@ class CategoryController(CategoryDao dao)
         return Results.Ok<SuccessResponseWithData<CategoryModel>>(new(response));
     }
 
-    public async Task<IResult> ListCategories(HttpContext httpContext)
+    public static async Task<IResult> ListCategories(CategoryDao dao, HttpContext httpContext)
     {
         // Check if the user is authenticated
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
@@ -62,7 +62,7 @@ class CategoryController(CategoryDao dao)
         return Results.Ok<SuccessResponseWithData<List<CategoryModel>>>(new(categories));
     }
 
-    public async Task<IResult> ReadCategory(HttpContext httpContext, int categoryId)
+    public static async Task<IResult> ReadCategory(CategoryDao dao, HttpContext httpContext, int categoryId)
     {
         // Check if the user is authenticated
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
@@ -85,7 +85,7 @@ class CategoryController(CategoryDao dao)
         return Results.Ok<SuccessResponseWithData<CategoryModel>>(new(category));
     }
 
-    public async Task<IResult> UpdateCategory(HttpContext httpContext, int categoryId, UpdateCategoryDto dto)
+    public static async Task<IResult> UpdateCategory(CategoryDao dao, HttpContext httpContext, int categoryId, UpdateCategoryDto dto)
     {
         // Check if the user is authenticated
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))

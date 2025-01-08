@@ -5,9 +5,11 @@ using MoExpenseTracker.Features.V0.Auth;
 
 namespace MoExpenseTracker.Features.V0.Account;
 
-class AccountController(AccountDao accountDao, AuthDao authDao)
+static class RequestHandlers
 {
-    public async Task<IResult> ReadProfile(HttpContext httpContext)
+    public static async Task<IResult> ReadProfile(
+        AccountDao accountDao,
+        HttpContext httpContext)
     {
         // Check if the user is authenticated
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
@@ -31,7 +33,9 @@ class AccountController(AccountDao accountDao, AuthDao authDao)
         return Results.Ok<SuccessResponseWithData<UserProfileDto>>(new(profile));
     }
 
-    public async Task<IResult> UpdateProfile(
+    public static async Task<IResult> UpdateProfile(
+        AccountDao accountDao,
+        AuthDao authDao,
         IValidator<UpdateProfileDto> validator,
         HttpContext httpContext,
         UpdateProfileDto dto)

@@ -51,11 +51,9 @@ class Program
         builder.Services.AddAuthorization();
 
         // register depencies
-        builder.Services.AddScoped<AuthController>();
         builder.Services.AddScoped<AuthDao>();
         builder.Services.AddScoped<AuthUtil>();
 
-        builder.Services.AddScoped<AccountController>();
         builder.Services.AddScoped<AccountDao>();
         // this is use injectiing the account validation so that we can pass 
         // an instance into the controller
@@ -63,7 +61,6 @@ class Program
         builder.Services.AddScoped<IValidator<UpdateProfileDto>, AccountUpdateValidation>();
 
 
-        builder.Services.AddScoped<CategoryController>();
         builder.Services.AddScoped<CategoryDao>();
         // we are going to inject the create category validation and use endpoint filter
         // builder.Services.AddValidatorsFromAssemblyContaining<CategoryCreationValidation>();
@@ -73,7 +70,6 @@ class Program
         builder.Services.AddScoped<IValidator<UpdateCategoryDto>, CategoryUpdateValidation>();
 
 
-        builder.Services.AddScoped<ExpenseController>();
         builder.Services.AddScoped<ExpenseDao>();
         builder.Services.AddScoped<IValidator<CreateExpenseDto>, ExpenseCreationValidation>();
         builder.Services.AddScoped<IValidator<UpdateExpenseDto>, ExpenseUpdateValidation>();
