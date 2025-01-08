@@ -1,7 +1,6 @@
-using Microsoft.AspNetCore.DataProtection.XmlEncryption;
 using MoExpenseTracker.Core;
 
-namespace MoExpenseTracker.Features.Expense;
+namespace MoExpenseTracker.Features.V0.Expense;
 
 static class ExpenseEndpoint
 {

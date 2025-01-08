@@ -1,9 +1,11 @@
 using System.Globalization;
+
 using MoExpenseTracker.Core;
-using MoExpenseTracker.Features.Category;
+using MoExpenseTracker.Features.V0.Category;
+
 using ExpenseModel = MoExpenseTracker.Models.Expense;
 
-namespace MoExpenseTracker.Features.Expense;
+namespace MoExpenseTracker.Features.V0.Expense;
 
 class ExpenseController(ExpenseDao expenseDao, CategoryDao categoryDao)
 {

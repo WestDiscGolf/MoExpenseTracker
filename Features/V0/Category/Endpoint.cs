@@ -1,7 +1,6 @@
-using FluentValidation;
 using MoExpenseTracker.Core;
 
-namespace MoExpenseTracker.Features.Category;
+namespace MoExpenseTracker.Features.V0.Category;
 
 static class Endpoint
 {

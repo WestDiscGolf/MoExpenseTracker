@@ -1,7 +1,8 @@
 using MoExpenseTracker.Core;
+
 using CategoryModel = MoExpenseTracker.Models.Category;
 
-namespace MoExpenseTracker.Features.Category;
+namespace MoExpenseTracker.Features.V0.Category;
 
 class CategoryController(CategoryDao dao)
 {

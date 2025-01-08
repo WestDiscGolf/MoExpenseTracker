@@ -1,6 +1,4 @@
-using System;
-
-namespace MoExpenseTracker.Features.Expense;
+namespace MoExpenseTracker.Features.V0.Expense;
 
 public class CreateExpenseDto
 {

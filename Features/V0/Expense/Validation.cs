@@ -1,7 +1,8 @@
 using System.Globalization;
+
 using FluentValidation;
 
-namespace MoExpenseTracker.Features.Expense;
+namespace MoExpenseTracker.Features.V0.Expense;
 
 
 class ExpenseValidationUtil

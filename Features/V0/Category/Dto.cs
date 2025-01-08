@@ -1,4 +1,4 @@
-namespace MoExpenseTracker.Features.Category;
+namespace MoExpenseTracker.Features.V0.Category;
 
 class CreateCategoryDto
 {

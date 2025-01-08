@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+
 using MoExpenseTracker.Data;
+
 using CategoryModel = MoExpenseTracker.Models.Category;
 
-namespace MoExpenseTracker.Features.Category;
+namespace MoExpenseTracker.Features.V0.Category;
 
 class CategoryDao(DatabaseContext context)
 {

@@ -1,12 +1,14 @@
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+
 using MoExpenseTracker.Core;
 using MoExpenseTracker.Models;
 
-namespace MoExpenseTracker.Features.Auth;
+namespace MoExpenseTracker.Features.V0.Auth;
 
 class AuthUtil
 {

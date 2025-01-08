@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+
 using MoExpenseTracker.Data;
 using MoExpenseTracker.Models;
 
-namespace MoExpenseTracker.Features.Account;
+namespace MoExpenseTracker.Features.V0.Account;
 
 class AccountDao(DatabaseContext context)
 {

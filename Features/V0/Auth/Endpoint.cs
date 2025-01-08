@@ -1,6 +1,6 @@
 using MoExpenseTracker.Core;
 
-namespace MoExpenseTracker.Features.Auth;
+namespace MoExpenseTracker.Features.V0.Auth;
 
 static class AuthEndpoint
 {

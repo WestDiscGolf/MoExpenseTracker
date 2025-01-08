@@ -1,8 +1,9 @@
 using FluentValidation;
-using MoExpenseTracker.Core;
-using MoExpenseTracker.Features.Auth;
 
-namespace MoExpenseTracker.Features.Account;
+using MoExpenseTracker.Core;
+using MoExpenseTracker.Features.V0.Auth;
+
+namespace MoExpenseTracker.Features.V0.Account;
 
 class AccountController(AccountDao accountDao, AuthDao authDao)
 {

@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace MoExpenseTracker.Features.Auth;
+namespace MoExpenseTracker.Features.V0.Auth;
 
 class AuthSignValidation : AbstractValidator<SignupDto>
 {

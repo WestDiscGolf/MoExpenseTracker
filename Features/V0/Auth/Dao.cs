@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+
 using MoExpenseTracker.Data;
 using MoExpenseTracker.Models;
 
-namespace MoExpenseTracker.Features.Auth;
+namespace MoExpenseTracker.Features.V0.Auth;
 
 class AuthDao(DatabaseContext context)
 {

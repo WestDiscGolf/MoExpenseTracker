@@ -3,27 +3,6 @@
 # after sign up or login replace the placeholder, JWT, with the auth token
 @MoAuthToken=JWT
 
-
-### Base test
-GET {{MoExpenseTracker_HostAddress}}/hello
-
-###
-GET {{MoExpenseTracker_HostAddress}}/hello/-1
-
-###
-POST {{MoExpenseTracker_HostAddress}}/hello
-Content-Type: application/json
-
-{
-    "username": "Username",
-    "password": "Password"
-}
-
-#
-#
-#
-#
-#
 # Actual api starts from here
 
 ## auth
@@ -33,9 +12,9 @@ POST {{MoExpenseTracker_HostAddress}}/auth/signup
 Content-Type: application/json
 
 {
-    "name":"Peter mann",
-    "email": "petermangmail.com",
-    "password": "peterman$"
+    "name":"Green Mann",
+    "email": "greenmann@gmail.com",
+    "password": "greenmann$"
 }
 
 ### Login
@@ -43,8 +22,8 @@ POST {{MoExpenseTracker_HostAddress}}/auth/login
 Content-Type: application/json
 
 {
-    "email": "goosegeese@gmail.com",
-    "password": "GooseGeese"
+    "email": "greenmann@gmail.com",
+    "password": "greenmann$"
 }
 
 

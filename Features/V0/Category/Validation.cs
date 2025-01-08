@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace MoExpenseTracker.Features.Category;
+namespace MoExpenseTracker.Features.V0.Category;
 
 
 class CategoryCreationValidation : AbstractValidator<CreateCategoryDto>
