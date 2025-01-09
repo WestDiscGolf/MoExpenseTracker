@@ -26,7 +26,7 @@ class AuthUtil
             rawPassword, salt, Iterations, HashAlgorithmName, HashSize);
 
         var passwordHash = $"{Convert.ToHexString(hash)}-{Convert.ToHexString(salt)}";
-        // System.Console.WriteLine(passwordHash.Length);
+
         return passwordHash;
     }
 
@@ -63,11 +63,6 @@ class AuthUtil
                 new SymmetricSecurityKey(secret),
                 SecurityAlgorithms.HmacSha512Signature)
         };
-
-        // using System.IdentityModel.Tokens.Jwt;
-        // var tokenHandler = new JwtSecurityTokenHandler();
-        // var jwtToken = tokenHandler.CreateToken(tokenDescriptor);
-        // var stringJwtToken = tokenHandler.WriteToken(jwtToken);
 
         var tokenHandler = new JsonWebTokenHandler();
         var stringJwtToken = tokenHandler.CreateToken(tokenDescriptor);

@@ -5,7 +5,7 @@ using FluentValidation;
 namespace MoExpenseTracker.Features.V0.Expense;
 
 
-class ExpenseValidationUtil
+static class ExpenseValidationUtil
 {
     public static bool IsValidDate(string? date)
     {

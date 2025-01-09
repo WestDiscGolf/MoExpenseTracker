@@ -6,15 +6,11 @@ static class ExpenseEndpoint
 {
     public static void AddExpenseEndpoint(this IEndpointRouteBuilder app)
     {
-        var expenseRoute = app.MapGroup("/expenses").AddEndpointFilter(async (context, next) =>
-        {
-            Console.WriteLine(context.HttpContext.Request.Path + " was called");
-            return await next(context);
-        });
+        var expenseRoute = app.MapGroup("/expenses");
 
         expenseRoute.MapPost("/", RequestHandlers.CreateExpense)
-            .AddEndpointFilter<AppEndpointFilter<CreateExpenseDto>>()
-            .RequireAuthorization();
+            .RequireAuthorization()
+            .AddEndpointFilter<ValidationEndpointFilter<CreateExpenseDto>>();
 
         expenseRoute.MapGet("/", RequestHandlers.ListExpenses)
             .RequireAuthorization();
@@ -23,7 +19,7 @@ static class ExpenseEndpoint
             .RequireAuthorization();
 
         expenseRoute.MapPut("/{id:int}", RequestHandlers.UpdateExpense)
-            .AddEndpointFilter<AppEndpointFilter<UpdateExpenseDto>>()
-            .RequireAuthorization();
+            .RequireAuthorization()
+            .AddEndpointFilter<ValidationEndpointFilter<UpdateExpenseDto>>();
     }
 }

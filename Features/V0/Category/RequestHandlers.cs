@@ -6,7 +6,10 @@ namespace MoExpenseTracker.Features.V0.Category;
 
 static class RequestHandlers
 {
-    public static async Task<IResult> CreateCategory(CategoryDao dao, HttpContext httpContext, CreateCategoryDto dto)
+    public static async Task<IResult> CreateCategory(
+        CategoryDao dao,
+        HttpContext httpContext,
+        CreateCategoryDto dto)
     {
         // Check if the user is authenticated
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
@@ -17,8 +20,6 @@ static class RequestHandlers
 
         // Find the claims for id and email
         var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
-        // email has been removed from the User claims
-        // var userEmail = httpContext.User.FindFirst(ClaimTypes.Email)?.Value;
 
         var category = await dao.ReadCategoryByName(userId, dto.Name);
         if (category is not null)
@@ -42,7 +43,9 @@ static class RequestHandlers
         return Results.Ok<SuccessResponseWithData<CategoryModel>>(new(response));
     }
 
-    public static async Task<IResult> ListCategories(CategoryDao dao, HttpContext httpContext)
+    public static async Task<IResult> ListCategories(
+        CategoryDao dao,
+        HttpContext httpContext)
     {
         // Check if the user is authenticated
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
@@ -53,16 +56,16 @@ static class RequestHandlers
 
         // Find the claims for id and email
         var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
-        // email has been removed from the User claims
-        // var userEmail = httpContext.User.FindFirst(ClaimTypes.Email)?.Value;
 
         var categories = await dao.ListCategoriesByUserId(userId);
-
 
         return Results.Ok<SuccessResponseWithData<List<CategoryModel>>>(new(categories));
     }
 
-    public static async Task<IResult> ReadCategory(CategoryDao dao, HttpContext httpContext, int categoryId)
+    public static async Task<IResult> ReadCategory(
+        CategoryDao dao,
+        HttpContext httpContext,
+        int categoryId)
     {
         // Check if the user is authenticated
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
@@ -73,8 +76,6 @@ static class RequestHandlers
 
         // Find the claims for id and email
         var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
-        // email has been removed from the User claims
-        // var userEmail = httpContext.User.FindFirst(ClaimTypes.Email)?.Value;
 
         var category = await dao.ReadCategoryById(userId, categoryId);
         if (category is null)
@@ -85,7 +86,11 @@ static class RequestHandlers
         return Results.Ok<SuccessResponseWithData<CategoryModel>>(new(category));
     }
 
-    public static async Task<IResult> UpdateCategory(CategoryDao dao, HttpContext httpContext, int categoryId, UpdateCategoryDto dto)
+    public static async Task<IResult> UpdateCategory(
+        CategoryDao dao,
+        HttpContext httpContext,
+        int categoryId,
+        UpdateCategoryDto dto)
     {
         // Check if the user is authenticated
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
@@ -96,8 +101,6 @@ static class RequestHandlers
 
         // Find the claims for id and email
         var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
-        // email has been removed from the User claims
-        // var userEmail = httpContext.User.FindFirst(ClaimTypes.Email)?.Value;
 
         var category = await dao.ReadCategoryById(userId, categoryId);
         if (category is null)

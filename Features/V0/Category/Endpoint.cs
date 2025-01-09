@@ -10,8 +10,8 @@ static class Endpoint
 
         // we can choose to inject IValidator<CreateCategoryDto> here as part of the parameters
         categoryRouth.MapPost("/", RequestHandlers.CreateCategory)
-            .AddEndpointFilter<AppEndpointFilter<CreateCategoryDto>>()
-            .RequireAuthorization();
+            .RequireAuthorization()
+            .AddEndpointFilter<ValidationEndpointFilter<CreateCategoryDto>>();
 
         categoryRouth.MapGet("/", RequestHandlers.ListCategories)
             .RequireAuthorization();
@@ -20,7 +20,7 @@ static class Endpoint
             .RequireAuthorization();
 
         categoryRouth.MapPut("/{id:int}", RequestHandlers.UpdateCategory)
-            .AddEndpointFilter<AppEndpointFilter<UpdateCategoryDto>>()
-            .RequireAuthorization();
+            .RequireAuthorization()
+            .AddEndpointFilter<ValidationEndpointFilter<UpdateCategoryDto>>();
     }
 }

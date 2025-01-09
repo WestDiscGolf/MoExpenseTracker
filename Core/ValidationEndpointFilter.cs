@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace MoExpenseTracker.Core;
 
-class AppEndpointFilter<T> : IEndpointFilter
+class ValidationEndpointFilter<T> : IEndpointFilter
 {
     public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
     {

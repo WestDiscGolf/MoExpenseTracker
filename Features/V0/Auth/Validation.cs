@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace MoExpenseTracker.Features.V0.Auth;
 
-class AuthSignValidation : AbstractValidator<SignupDto>
+class AuthSignupValidation : AbstractValidator<SignupDto>
 {
-    public AuthSignValidation()
+    public AuthSignupValidation()
     {
         RuleFor(dto => dto.Name)
             .NotEmpty()

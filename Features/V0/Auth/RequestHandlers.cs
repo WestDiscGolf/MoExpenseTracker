@@ -12,27 +12,6 @@ static class RequestHandlers
         SignupDto dto
         )
     {
-        // manually doing the validation in the controller
-        // we will do the login validation using the endpoint filter
-        AuthSignValidation validator = new();
-        var validation = validator.Validate(dto);
-        Console.WriteLine("Hello there");
-
-
-        if (!validation.IsValid)
-        {
-            System.Console.WriteLine(validation.Errors[0]);
-            // to take the first one
-            return Results.BadRequest<FailureResponse>(new(validation.Errors[0].ToString()));
-            // return Results.ValidationProblem(validation.ToDictionary());
-
-        }
-
-        // we could inject the the validation service and pass an instance to the controller 
-        // so that we don't have to create an instance
-        // the best aproach will be to just inject it
-        // validation ends here
-
         // check that there is no user with this email
         var isEmailTaken = await dao.IsExitingUser(dto.Email);
         if (isEmailTaken)
@@ -59,7 +38,11 @@ static class RequestHandlers
 
     }
 
-    public static async Task<IResult> Login(AuthDao dao, AuthUtil util, IConfiguration configuration, LoginDto dto)
+    public static async Task<IResult> Login(
+        AuthDao dao,
+        AuthUtil util,
+        IConfiguration configuration,
+        LoginDto dto)
     {
         // find user with this email
         var user = await dao.GetUserByEmail(dto.Email);
@@ -83,7 +66,10 @@ static class RequestHandlers
         return Results.Ok<SuccessResponseWithData<AuthResponseDto>>(new(authResponse));
     }
 
-    private static AuthResponseDto GetAuthResponse(AuthUtil util, IConfiguration configuration, User user)
+    private static AuthResponseDto GetAuthResponse(
+        AuthUtil util,
+        IConfiguration configuration,
+        User user)
     {
         var jwtConfig = new AppConfig
         {
