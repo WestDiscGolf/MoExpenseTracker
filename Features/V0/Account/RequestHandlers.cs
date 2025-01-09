@@ -36,17 +36,9 @@ static class RequestHandlers
     public static async Task<IResult> UpdateProfile(
         AccountDao accountDao,
         AuthDao authDao,
-        IValidator<UpdateProfileDto> validator,
         HttpContext httpContext,
         UpdateProfileDto dto)
     {
-        // injected validator instance
-        var result = await validator.ValidateAsync(dto);
-        if (!result.IsValid)
-        {
-            return Results.Ok<FailureResponse>(new(result.Errors[0].ToString()));
-        }
-
         // Check if the user is authenticated
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
         {

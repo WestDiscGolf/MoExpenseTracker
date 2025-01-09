@@ -1,3 +1,5 @@
+using MoExpenseTracker.Core;
+
 namespace MoExpenseTracker.Features.V0.Account;
 
 static class AccountEndpoint
@@ -8,6 +10,8 @@ static class AccountEndpoint
 
         userRoute.MapGet("/", RequestHandlers.ReadProfile).RequireAuthorization();
 
-        userRoute.MapPut("/", RequestHandlers.UpdateProfile).RequireAuthorization();
+        userRoute.MapPut("/", RequestHandlers.UpdateProfile)
+            .RequireAuthorization()
+            .AddEndpointFilter<ValidationEndpointFilter<UpdateProfileDto>>();
     }
 }
