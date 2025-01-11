@@ -13,6 +13,8 @@ static class RequestHandlers
         )
     {
         // check that there is no user with this email
+        dto.Email = dto.Email.ToLower();
+
         var isEmailTaken = await dao.IsExitingUser(dto.Email);
         if (isEmailTaken)
         {
@@ -22,6 +24,7 @@ static class RequestHandlers
         // hash user password
         var passwordHash = util.Hash(dto.Password);
         dto.Password = passwordHash;
+        dto.Name = dto.Name.ToLower();
 
         // insert record 
         var row = await dao.CreateUser(dto); // the number of rows inserted
@@ -45,6 +48,8 @@ static class RequestHandlers
         LoginDto dto)
     {
         // find user with this email
+        dto.Email = dto.Email.ToLower();
+
         var user = await dao.GetUserByEmail(dto.Email);
         if (user == null)
         {

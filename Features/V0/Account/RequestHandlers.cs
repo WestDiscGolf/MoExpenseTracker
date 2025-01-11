@@ -62,7 +62,7 @@ static class RequestHandlers
         }
 
         user.Name = dto.Name;
-        user.Email = dto.Email;
+        user.Email = dto.Email.ToLower();
         user.UpdatedAt = DateTime.UtcNow;
 
         var updatedUser = await accountDao.UpdateProfile(user);

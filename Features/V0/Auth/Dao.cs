@@ -24,7 +24,7 @@ class AuthDao(DatabaseContext context)
     {
         User user = new()
         {
-            Email = dto.Email.ToLower(),
+            Email = dto.Email,
             Name = dto.Name,
             Password = dto.Password
         };

@@ -53,7 +53,7 @@ static class RequestHandlers
             UserId = userId,
             Amount = dto.Amount,
             CategoryId = dto.CategoryId,
-            Description = dto.Description ?? "",
+            Description = dto.Description?.ToLower() ?? "",
             ExpenseDate = parsedExpenseDate
         };
 
@@ -162,7 +162,7 @@ static class RequestHandlers
 
         expense.CategoryId = dto.CategoryId ?? expense.CategoryId;
         expense.Amount = dto.Amount ?? expense.Amount;
-        expense.Description = dto.Description ?? expense.Description;
+        expense.Description = dto.Description?.ToLower() ?? expense.Description;
         expense.UpdatedAt = DateTime.UtcNow;
 
         var updatedExpense = await expenseDao.UpdateExpense(expense);
