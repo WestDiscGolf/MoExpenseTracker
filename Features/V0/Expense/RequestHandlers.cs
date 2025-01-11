@@ -36,23 +36,17 @@ static class RequestHandlers
             return Results.Ok<FailureResponse>(new("Expense amount can not be in the negative"));
         }
 
-        DateTime parsedExpenseDate = DateTime.UtcNow;
+        DateOnly parsedExpenseDate = DateOnly.FromDateTime(DateTime.Now);
 
-        if (!string.IsNullOrEmpty(dto.ExpenseDate))
-        {
-            if (!DateTime.TryParseExact(
+        if (!string.IsNullOrEmpty(dto.ExpenseDate) && !DateOnly.TryParseExact(
                 dto.ExpenseDate,
                 "dd/MM/yyyy",
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.None,
                 out parsedExpenseDate))
-            {
-                return Results.Ok<FailureResponse>(new("Expense date must be of the format: dd/MM/yyyy"));
-            }
-
-            parsedExpenseDate = parsedExpenseDate.ToUniversalTime();
+        {
+            return Results.Ok<FailureResponse>(new("Expense date must be of the format: dd/MM/yyyy"));
         }
-
 
         var newExpense = new ExpenseModel()
         {
@@ -145,21 +139,21 @@ static class RequestHandlers
         }
 
         // assuming user wants to update the expense date
-        DateTime parsedExpenseDate = expense.ExpenseDate!.Value;
         if (!string.IsNullOrEmpty(dto.ExpenseDate))
         {
-            if (!DateTime.TryParseExact(
-                dto.ExpenseDate,
-                "dd/MM/yyyy",
-                CultureInfo.InvariantCulture,
-                DateTimeStyles.None,
-                out parsedExpenseDate))
+            if (!DateOnly.TryParseExact(
+                    dto.ExpenseDate,
+                    "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out var parsedExpenseDate))
             {
                 return Results.Ok<FailureResponse>(new("Expense date must be of the format: dd/MM/yyyy"));
             }
 
-            parsedExpenseDate = parsedExpenseDate.ToUniversalTime();
+            expense.ExpenseDate = parsedExpenseDate;
         }
+
 
         if (dto.Amount is not null && dto.Amount.Value < 0)
         {
@@ -169,7 +163,6 @@ static class RequestHandlers
         expense.CategoryId = dto.CategoryId ?? expense.CategoryId;
         expense.Amount = dto.Amount ?? expense.Amount;
         expense.Description = dto.Description ?? expense.Description;
-        expense.ExpenseDate = parsedExpenseDate;
         expense.UpdatedAt = DateTime.UtcNow;
 
         var updatedExpense = await expenseDao.UpdateExpense(expense);

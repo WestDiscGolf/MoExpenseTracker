@@ -7,7 +7,7 @@ class Expense
     public decimal Amount { get; set; }
     public int CategoryId { get; set; }
     public string? Description { get; set; }
-    public DateTime? ExpenseDate { get; set; }
+    public DateOnly? ExpenseDate { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 }
