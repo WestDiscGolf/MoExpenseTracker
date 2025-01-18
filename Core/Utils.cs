@@ -20,6 +20,14 @@ class SuccessResponseWithData<T>(T data) : AppResponse(true)
     public T Data { get; set; } = data;
 }
 
+class PaginationResponse<T>(T data, int count, Pagination pagination) : SuccessResponseWithData<T>(data)
+{
+    public int CurrentPageSize { get; } = pagination.PageSize;
+    public int CurrentPageNumber { get; } = pagination.PageNumber;
+    public int Count { get; } = count;
+    public bool HasNextPage { get; } = pagination.PageNumber * pagination.PageSize < count;
+}
+
 class AppConfig
 {
     public required string Issuer { get; set; }

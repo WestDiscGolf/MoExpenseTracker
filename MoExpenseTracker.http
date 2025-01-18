@@ -1,7 +1,7 @@
 @MoExpenseTracker_HostAddress=http://localhost:5158
 
 # after sign up or login replace the placeholder, JWT, with the auth token
-@MoAuthToken=JWT
+@MoAuthToken=eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJNb0V4cGVuc2VUcmFja2VyOjpBdWRpZW5jZTo6VFc5RmVIQmxibk5sVkhKaFkydGxjam82U1hOemRXVnlPam96Vm5wbFkwdExkbTlYTldsc1J6azBlVlEzZVRobGNFdHpUUzlYVTJGRFNucDNja3A0UzFaclp6Z3VhSFZyUmtsSlFrOVFiUT09IiwiaXNzIjoiTW9FeHBlbnNlVHJhY2tlcjo6SXNzdWVyOjpUVzlGZUhCbGJuTmxWSEpoWTJ0bGNqbzZTWE56ZFdWeU9qcEdOR05UUW0xd1NtOHZWVGRIYW0xTGJsQmFjbEl1TW5ObWFGSjJjMU5DWWxoRGJtd3ZSWGh3Y210M1dtUjRWRk52YzFjMVZ3PT0iLCJleHAiOjE3MzcxODIyODQsImlkIjoiNSIsIm5vbmNlIjoiMkFDOEE1QjYwOUM0M0VDMTg4RDc0Q0E3NjdDNDRCMzNEQTYzODBBNzQxOTY4MkEyNjhGNjA5QkQ5NjdGRDQwQ0ZFMjQwMzdFMTQ3NzNCNzY3Mzg4ODk2QkIzNUQyMDE2OEYxQUU3QzU1QTQzQkQ1Q0UzNEY1NUUwQ0M1MkU3NDQiLCJpYXQiOjE3MzcxNzUwODQsIm5iZiI6MTczNzE3NTA4NH0.2KhZ3SIvLvajEiqW2mSv3g2DVSUoUYo0SPu01qXwcrWQ-fhwj9LM1VPt0k45ftAfYw4Cg-CGlssT_M9qGMoYpA
 
 # Actual api starts from here
 
@@ -22,8 +22,8 @@ POST {{MoExpenseTracker_HostAddress}}/auth/login
 Content-Type: application/json
 
 {
-    "email": "greenmann@gmail.com",
-    "password": "greenmann$"
+    "email": "popecan1000@gmail.com",
+    "password": "Password123$"
 }
 
 
@@ -52,12 +52,12 @@ Authorization: Bearer {{MoAuthToken}}
 Content-Type: application/json
 
 {
-    "name": "Money savings",
-    "description": "Expenses in savings"
+    "name": "Friday Night Out Savings",
+    "description": "Expenses in savings for specially reserved friday nights"
 }
 
 ### List Category
-GET {{MoExpenseTracker_HostAddress}}/categories
+GET {{MoExpenseTracker_HostAddress}}/categories?pageNumber=1&pageSize=2
 Authorization: Bearer {{MoAuthToken}}
 
 ### Read Category
@@ -90,7 +90,7 @@ Content-Type: application/json
 }
 
 ### List Expense
-GET {{MoExpenseTracker_HostAddress}}/expenses
+GET {{MoExpenseTracker_HostAddress}}/expenses?pageNumber=1&pageSize=2
 Authorization: Bearer {{MoAuthToken}}
 
 ### Read Expense

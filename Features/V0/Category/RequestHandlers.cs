@@ -45,7 +45,9 @@ static class RequestHandlers
 
     public static async Task<IResult> ListCategories(
         CategoryDao dao,
-        HttpContext httpContext)
+        HttpContext httpContext,
+        int pageNumber = 1,
+        int pageSize = 10)
     {
         // Check if the user is authenticated
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
@@ -57,9 +59,12 @@ static class RequestHandlers
         // Find the claims for id and email
         var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
 
-        var categories = await dao.ListCategoriesByUserId(userId);
+        var pagination = new Pagination(pageNumber, pageSize);
 
-        return Results.Ok<SuccessResponseWithData<List<CategoryModel>>>(new(categories));
+        var categories = await dao.ListCategoriesByUserId(userId, pagination);
+        var count = await dao.CountCategoriesByUserId(userId);
+
+        return Results.Ok<PaginationResponse<List<CategoryModel>>>(new(categories, count, pagination));
     }
 
     public static async Task<IResult> ReadCategory(
