@@ -1,5 +1,3 @@
-using FluentValidation;
-
 using MoExpenseTracker.Core;
 using MoExpenseTracker.Features.V0.Auth;
 
@@ -9,17 +7,9 @@ static class RequestHandlers
 {
     public static async Task<IResult> ReadProfile(
         AccountDao accountDao,
-        HttpContext httpContext)
+        ICurrentUser currentUser)
     {
-        // Check if the user is authenticated
-        if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
-        {
-            // Return Unauthorized if user is not authenticated
-            return Results.Unauthorized();
-        }
-
-        // Find the claims for id and email
-        var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
+        var userId = currentUser.UserId();
 
         var user = await accountDao.ReadProfile(userId);
         if (user == null)
@@ -36,18 +26,10 @@ static class RequestHandlers
     public static async Task<IResult> UpdateProfile(
         AccountDao accountDao,
         AuthDao authDao,
-        HttpContext httpContext,
+        ICurrentUser currentUser,
         UpdateProfileDto dto)
     {
-        // Check if the user is authenticated
-        if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
-        {
-            // Return Unauthorized if user is not authenticated
-            return Results.Unauthorized();
-        }
-
-        // Find the claims for id and email
-        var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
+        var userId = currentUser.UserId();
 
         var user = await accountDao.ReadProfile(userId);
         if (user == null)

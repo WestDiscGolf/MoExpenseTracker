@@ -8,18 +8,11 @@ static class RequestHandlers
 {
     public static async Task<IResult> CreateCategory(
         CategoryDao dao,
-        HttpContext httpContext,
+       ICurrentUser currentUser,
         CreateCategoryDto dto)
     {
-        // Check if the user is authenticated
-        if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
-        {
-            // Return Unauthorized if user is not authenticated
-            return Results.Unauthorized();
-        }
 
-        // Find the claims for id and email
-        var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
+        var userId = currentUser.UserId();
 
         var category = await dao.ReadCategoryByName(userId, dto.Name);
         if (category is not null)
@@ -45,7 +38,7 @@ static class RequestHandlers
 
     public static async Task<IResult> ListCategories(
         CategoryDao dao,
-        HttpContext httpContext,
+        ICurrentUser currentUser,
         int pageNumber = 1,
         int pageSize = 10,
         string nameSearch = "",
@@ -53,15 +46,7 @@ static class RequestHandlers
         string sortIn = "asc"
         )
     {
-        // Check if the user is authenticated
-        if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
-        {
-            // Return Unauthorized if user is not authenticated
-            return Results.Unauthorized();
-        }
-
-        // Find the claims for id and email
-        var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
+        var userId = currentUser.UserId();
 
         var pagination = new Pagination(pageNumber, pageSize);
 
@@ -73,18 +58,10 @@ static class RequestHandlers
 
     public static async Task<IResult> ReadCategory(
         CategoryDao dao,
-        HttpContext httpContext,
+        ICurrentUser currentUser,
         int categoryId)
     {
-        // Check if the user is authenticated
-        if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
-        {
-            // Return Unauthorized if user is not authenticated
-            return Results.Unauthorized();
-        }
-
-        // Find the claims for id and email
-        var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
+        var userId = currentUser.UserId();
 
         var category = await dao.ReadCategoryById(userId, categoryId);
         if (category is null)
@@ -97,19 +74,11 @@ static class RequestHandlers
 
     public static async Task<IResult> UpdateCategory(
         CategoryDao dao,
-        HttpContext httpContext,
+        ICurrentUser currentUser,
         int categoryId,
         UpdateCategoryDto dto)
     {
-        // Check if the user is authenticated
-        if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
-        {
-            // Return Unauthorized if user is not authenticated
-            return Results.Unauthorized();
-        }
-
-        // Find the claims for id and email
-        var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
+        var userId = currentUser.UserId();
 
         var category = await dao.ReadCategoryById(userId, categoryId);
         if (category is null)

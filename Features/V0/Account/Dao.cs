@@ -17,6 +17,6 @@ class AccountDao(DatabaseContext context)
         context.Entry(user).State = EntityState.Modified;
         await context.SaveChangesAsync();
 
-        return await ReadProfile(user.Id);
+        return user;
     }
 }

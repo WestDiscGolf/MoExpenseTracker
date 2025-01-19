@@ -15,10 +15,10 @@ static class ExpenseEndpoint
         expenseRoute.MapGet("/", RequestHandlers.ListExpenses)
             .RequireAuthorization();
 
-        expenseRoute.MapGet("/{id:int}", RequestHandlers.ReadExpense)
+        expenseRoute.MapGet("/{expenseId:int}", RequestHandlers.ReadExpense)
             .RequireAuthorization();
 
-        expenseRoute.MapPut("/{id:int}", RequestHandlers.UpdateExpense)
+        expenseRoute.MapPut("/{expenseId:int}", RequestHandlers.UpdateExpense)
             .RequireAuthorization()
             .AddEndpointFilter<ValidationEndpointFilter<UpdateExpenseDto>>();
     }

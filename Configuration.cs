@@ -47,6 +47,9 @@ public static class Configuration
 
         builder.Services.AddAuthorization();
 
+        builder.Services.AddHttpContextAccessor();
+        builder.Services.AddScoped<ICurrentUser, CurrentUser>();
+
         // register depencies
         builder.Services.AddScoped<AuthDao>();
         builder.Services.AddScoped<AuthUtil>();

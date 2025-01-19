@@ -16,10 +16,10 @@ static class Endpoint
         categoryRouth.MapGet("/", RequestHandlers.ListCategories)
             .RequireAuthorization();
 
-        categoryRouth.MapGet("/{id:int}", RequestHandlers.ReadCategory)
+        categoryRouth.MapGet("/{categoryId:int}", RequestHandlers.ReadCategory)
             .RequireAuthorization();
 
-        categoryRouth.MapPut("/{id:int}", RequestHandlers.UpdateCategory)
+        categoryRouth.MapPut("/{categoryId:int}", RequestHandlers.UpdateCategory)
             .RequireAuthorization()
             .AddEndpointFilter<ValidationEndpointFilter<UpdateCategoryDto>>();
     }

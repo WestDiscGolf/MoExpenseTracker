@@ -12,18 +12,10 @@ static class RequestHandlers
     public static async Task<IResult> CreateExpense(
         ExpenseDao expenseDao,
         CategoryDao categoryDao,
-        HttpContext httpContext,
+        ICurrentUser currentUser,
         CreateExpenseDto dto)
     {
-        if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
-        {
-            // Return Unauthorized if user is not authenticated
-            return Results.Unauthorized();
-        }
-
-        // Find the claims for id and email
-        var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
-        // email has been removed from the User claims
+        var userId = currentUser.UserId();
 
         var category = await categoryDao.ReadCategoryById(userId, dto.CategoryId);
         if (category is null)
@@ -64,21 +56,14 @@ static class RequestHandlers
 
     public static async Task<IResult> ListExpenses(
         ExpenseDao expenseDao,
-        HttpContext httpContext,
+        ICurrentUser currentUser,
         int pageNumber = 1,
         int pageSize = 10,
         string nameSearch = "",
         string sortBy = "id",
         string sortIn = "asc")
     {
-        if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
-        {
-            // Return Unauthorized if user is not authenticated
-            return Results.Unauthorized();
-        }
-
-        // Find the claims for id and email
-        var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
+        var userId = currentUser.UserId();
 
         var pagination = new Pagination(pageNumber, pageSize);
 
@@ -91,20 +76,13 @@ static class RequestHandlers
 
     public static async Task<IResult> ReadExpense(
         ExpenseDao expenseDao,
-        HttpContext httpContext,
-        int id)
+        ICurrentUser currentUser,
+        int expenseId)
     {
-        if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
-        {
-            // Return Unauthorized if user is not authenticated
-            return Results.Unauthorized();
-        }
 
-        // Find the claims for id and email
-        var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
-        // email has been removed from the User claims
+        var userId = currentUser.UserId();
 
-        var expense = await expenseDao.ReadExpenseById(userId, id);
+        var expense = await expenseDao.ReadExpenseById(userId, expenseId);
         if (expense is null)
         {
             return Results.Ok<FailureResponse>(new("Expense not found"));
@@ -116,21 +94,14 @@ static class RequestHandlers
     public static async Task<IResult> UpdateExpense(
         ExpenseDao expenseDao,
         CategoryDao categoryDao,
-        HttpContext httpContext,
-        int id,
+        ICurrentUser currentUser,
+        int expenseId,
         UpdateExpenseDto dto)
     {
-        if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
-        {
-            // Return Unauthorized if user is not authenticated
-            return Results.Unauthorized();
-        }
 
-        // Find the claims for id and email
-        var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
-        // email has been removed from the User claims
+        var userId = currentUser.UserId();
 
-        var expense = await expenseDao.ReadExpenseById(userId, id);
+        var expense = await expenseDao.ReadExpenseById(userId, expenseId);
         if (expense is null)
         {
             return Results.Ok<FailureResponse>(new("Expense not found"));
