@@ -64,7 +64,9 @@ static class RequestHandlers
 
     public static async Task<IResult> ListExpenses(
         ExpenseDao expenseDao,
-        HttpContext httpContext)
+        HttpContext httpContext,
+        int pageNumber = 1,
+        int pageSize = 10)
     {
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
         {
@@ -74,11 +76,14 @@ static class RequestHandlers
 
         // Find the claims for id and email
         var userId = int.Parse(httpContext.User.FindFirst("id")?.Value!);
-        // email has been removed from the User claims
 
-        var expenses = await expenseDao.ListCategoriesByUserId(userId);
+        var pagination = new Pagination(pageNumber, pageSize);
 
-        return Results.Ok<SuccessResponseWithData<List<ExpenseModel>>>(new(expenses));
+        var expenses = await expenseDao.ListExpensesByUserId(userId, pagination);
+
+        var count = await expenseDao.CountExpensesByUserId(userId);
+
+        return Results.Ok<PaginationResponse<List<ExpenseModel>>>(new(expenses, count, pagination));
     }
 
     public static async Task<IResult> ReadExpense(

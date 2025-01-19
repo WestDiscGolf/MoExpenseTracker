@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
+using MoExpenseTracker.Core;
 using MoExpenseTracker.Data;
 
 using ExpenseModel = MoExpenseTracker.Models.Expense;
@@ -21,9 +22,18 @@ class ExpenseDao(DatabaseContext context)
         return (await ReadExpenseById(expense.UserId, expense.Id))!;
     }
 
-    public async Task<List<ExpenseModel>> ListCategoriesByUserId(int userId)
+    public async Task<List<ExpenseModel>> ListExpensesByUserId(int userId, Pagination pagination)
     {
-        return await context.Expenses.Where(row => row.UserId == userId).ToListAsync();
+        return await context.Expenses.Where(row => row.UserId == userId)
+            .OrderBy(row => row.Id)
+            .Skip((pagination.PageNumber - 1) * pagination.PageSize)
+            .Take(pagination.PageSize)
+            .ToListAsync();
+    }
+
+    public async Task<int> CountExpensesByUserId(int userId)
+    {
+        return await context.Expenses.CountAsync(row => row.UserId == userId);
     }
 
     internal async Task<ExpenseModel> UpdateExpense(ExpenseModel expense)
