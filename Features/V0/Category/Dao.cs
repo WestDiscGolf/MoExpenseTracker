@@ -18,10 +18,10 @@ class CategoryDao(DatabaseContext context)
 
     public async Task<CategoryModel> CreateCategory(CategoryModel category)
     {
-        await context.Categories.AddAsync(category);
+        context.Categories.Add(category);
         await context.SaveChangesAsync();
 
-        return (await ReadCategoryByName(category.UserId, category.Name))!;
+        return category;
     }
 
     public async Task<List<CategoryModel>> ListCategoriesByUserId(
@@ -90,6 +90,6 @@ class CategoryDao(DatabaseContext context)
         context.Entry(category).State = EntityState.Modified;
         await context.SaveChangesAsync();
 
-        return await ReadCategoryById(category.UserId, category.Id);
+        return category;
     }
 }

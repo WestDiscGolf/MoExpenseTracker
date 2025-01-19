@@ -27,13 +27,7 @@ static class RequestHandlers
         dto.Name = dto.Name.ToLower();
 
         // insert record 
-        var row = await dao.CreateUser(dto); // the number of rows inserted
-        if (row < 1)
-        {
-            return Results.BadRequest<FailureResponse>(new("Could not create user"));
-        }
-
-        var user = await dao.GetUserByEmail(dto.Email);
+        var user = await dao.CreateUser(dto); // the number of rows inserted
 
         var authResponse = GetAuthResponse(util, configuration, user!);
 

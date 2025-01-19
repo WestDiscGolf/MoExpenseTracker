@@ -17,10 +17,10 @@ class ExpenseDao(DatabaseContext context)
 
     public async Task<ExpenseModel> CreateExpense(ExpenseModel expense)
     {
-        await context.Expenses.AddAsync(expense);
+        context.Expenses.Add(expense);
         await context.SaveChangesAsync();
 
-        return (await ReadExpenseById(expense.UserId, expense.Id))!;
+        return expense;
     }
 
     public async Task<List<ExpenseModel>> ListExpensesByUserId(
@@ -30,8 +30,6 @@ class ExpenseDao(DatabaseContext context)
         string sortBy = "id",
         string sortIn = "asc")
     {
-
-        Console.WriteLine(new { nameSearch, sortBy, sortIn });
         var records = context.Expenses.Where(row => row.UserId == userId);
 
         if (!string.IsNullOrEmpty(nameSearch))
@@ -98,6 +96,6 @@ class ExpenseDao(DatabaseContext context)
         context.Entry(expense).State = EntityState.Modified;
         await context.SaveChangesAsync();
 
-        return (await ReadExpenseById(expense.UserId, expense.Id))!;
+        return expense;
     }
 }

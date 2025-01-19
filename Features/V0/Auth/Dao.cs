@@ -20,7 +20,7 @@ class AuthDao(DatabaseContext context)
         return await context.Users.FirstOrDefaultAsync(row => row.Email == email);
     }
 
-    public async Task<int> CreateUser(SignupDto dto)
+    public async Task<User> CreateUser(SignupDto dto)
     {
         User user = new()
         {
@@ -30,6 +30,8 @@ class AuthDao(DatabaseContext context)
         };
 
         context.Users.Add(user);
-        return await context.SaveChangesAsync();
+        await context.SaveChangesAsync();
+
+        return user;
     }
 }
