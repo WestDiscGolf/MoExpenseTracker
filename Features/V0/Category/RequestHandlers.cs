@@ -47,7 +47,11 @@ static class RequestHandlers
         CategoryDao dao,
         HttpContext httpContext,
         int pageNumber = 1,
-        int pageSize = 10)
+        int pageSize = 10,
+        string nameSearch = "",
+        string sortBy = "id",
+        string sortIn = "asc"
+        )
     {
         // Check if the user is authenticated
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
@@ -61,8 +65,8 @@ static class RequestHandlers
 
         var pagination = new Pagination(pageNumber, pageSize);
 
-        var categories = await dao.ListCategoriesByUserId(userId, pagination);
-        var count = await dao.CountCategoriesByUserId(userId);
+        var categories = await dao.ListCategoriesByUserId(userId, pagination, nameSearch, sortBy, sortIn);
+        var count = await dao.CountCategoriesByUserId(userId, nameSearch);
 
         return Results.Ok<PaginationResponse<List<CategoryModel>>>(new(categories, count, pagination));
     }

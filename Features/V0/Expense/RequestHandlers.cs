@@ -66,7 +66,10 @@ static class RequestHandlers
         ExpenseDao expenseDao,
         HttpContext httpContext,
         int pageNumber = 1,
-        int pageSize = 10)
+        int pageSize = 10,
+        string nameSearch = "",
+        string sortBy = "id",
+        string sortIn = "asc")
     {
         if (!(httpContext.User.Identity?.IsAuthenticated ?? false))
         {
@@ -79,7 +82,7 @@ static class RequestHandlers
 
         var pagination = new Pagination(pageNumber, pageSize);
 
-        var expenses = await expenseDao.ListExpensesByUserId(userId, pagination);
+        var expenses = await expenseDao.ListExpensesByUserId(userId, pagination, nameSearch, sortBy, sortIn);
 
         var count = await expenseDao.CountExpensesByUserId(userId);
 

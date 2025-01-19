@@ -25,18 +25,56 @@ class CategoryDao(DatabaseContext context)
     }
 
     public async Task<List<CategoryModel>> ListCategoriesByUserId(
-        int userId, Pagination pagination)
+        int userId,
+        Pagination pagination,
+        string nameSearch = "",
+        string sortBy = "id",
+        string sortIn = "asc")
     {
+        nameSearch = nameSearch.ToLower();
+        sortBy = sortBy.ToLower();
+        sortIn = sortIn.ToLower();
 
-        return await context.Categories.Where(row => row.UserId == userId)
-            .OrderBy(row => row.Id)
+        var records = context.Categories.Where(row => row.UserId == userId);
+
+        if (!string.IsNullOrEmpty(nameSearch))
+        {
+            records = records.Where(row => row.Name.ToLower().Contains(nameSearch));
+        }
+
+        // sort can be done by id or name, and asc and desc
+        if (sortBy.Equals("name") && sortIn.Equals("desc"))
+        {
+            records = records.OrderByDescending(row => row.Name);
+        }
+        else if (sortBy.Equals("name") && sortIn.Equals("asc"))
+        {
+            records = records.OrderBy(row => row.Name);
+        }
+        else if (sortBy.Equals("id") && sortIn.Equals("desc"))
+        {
+            records = records.OrderByDescending(row => row.Id);
+        }
+        else
+        {
+            records = records.OrderBy(row => row.Id);
+        }
+
+        return await records
             .Skip((pagination.PageNumber - 1) * pagination.PageSize)
             .Take(pagination.PageSize)
             .ToListAsync();
     }
 
-    public async Task<int> CountCategoriesByUserId(int userId)
+    public async Task<int> CountCategoriesByUserId(int userId, string nameSearch = "")
     {
+        if (!string.IsNullOrEmpty(nameSearch))
+        {
+            return await context.Categories.CountAsync((row) =>
+                row.UserId == userId && row.Name.ToLower().Contains(nameSearch.ToLower()));
+        }
+
+
         return await context.Categories.CountAsync(row => row.UserId == userId);
     }
 
