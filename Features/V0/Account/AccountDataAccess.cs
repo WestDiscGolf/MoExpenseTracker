@@ -5,7 +5,7 @@ using MoExpenseTracker.Models;
 
 namespace MoExpenseTracker.Features.V0.Account;
 
-class AccountDao(DatabaseContext context)
+class AccountDataAccess(DatabaseContext context)
 {
     public async Task<User?> ReadProfile(int id)
     {

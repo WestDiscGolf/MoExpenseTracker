@@ -7,7 +7,7 @@ namespace MoExpenseTracker.Features.V0.Category;
 static class RequestHandlers
 {
     public static async Task<IResult> CreateCategory(
-        CategoryDao dao,
+        CategotyDataAccess dao,
        ICurrentUser currentUser,
         CreateCategoryDto dto)
     {
@@ -37,7 +37,7 @@ static class RequestHandlers
     }
 
     public static async Task<IResult> ListCategories(
-        CategoryDao dao,
+        CategotyDataAccess dao,
         ICurrentUser currentUser,
         int pageNumber = 1,
         int pageSize = 10,
@@ -57,7 +57,7 @@ static class RequestHandlers
     }
 
     public static async Task<IResult> ReadCategory(
-        CategoryDao dao,
+        CategotyDataAccess dao,
         ICurrentUser currentUser,
         int categoryId)
     {
@@ -73,7 +73,7 @@ static class RequestHandlers
     }
 
     public static async Task<IResult> UpdateCategory(
-        CategoryDao dao,
+        CategotyDataAccess dao,
         ICurrentUser currentUser,
         int categoryId,
         UpdateCategoryDto dto)

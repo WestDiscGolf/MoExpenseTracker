@@ -5,7 +5,7 @@ using MoExpenseTracker.Models;
 
 namespace MoExpenseTracker.Features.V0.Auth;
 
-class AuthDao(DatabaseContext context)
+class AuthDataAccess(DatabaseContext context)
 {
     public async Task<bool> IsExitingUser(string email)
     {

@@ -51,19 +51,19 @@ public static class Configuration
         builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 
         // register depencies
-        builder.Services.AddScoped<AuthDao>();
+        builder.Services.AddScoped<AuthDataAccess>();
         builder.Services.AddScoped<AuthUtil>();
         builder.Services.AddScoped<IValidator<SignupDto>, AuthSignupValidation>();
         builder.Services.AddScoped<IValidator<LoginDto>, AuthLoginValidation>();
 
-        builder.Services.AddScoped<AccountDao>();
+        builder.Services.AddScoped<AccountDataAccess>();
         builder.Services.AddScoped<IValidator<UpdateProfileDto>, AccountUpdateValidation>();
 
-        builder.Services.AddScoped<CategoryDao>();
+        builder.Services.AddScoped<CategotyDataAccess>();
         builder.Services.AddScoped<IValidator<CreateCategoryDto>, CategoryCreationValidation>();
         builder.Services.AddScoped<IValidator<UpdateCategoryDto>, CategoryUpdateValidation>();
 
-        builder.Services.AddScoped<ExpenseDao>();
+        builder.Services.AddScoped<ExpenseDataAccess>();
         builder.Services.AddScoped<IValidator<CreateExpenseDto>, ExpenseCreationValidation>();
         builder.Services.AddScoped<IValidator<UpdateExpenseDto>, ExpenseUpdateValidation>();
     }

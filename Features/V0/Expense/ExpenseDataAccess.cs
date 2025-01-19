@@ -7,7 +7,7 @@ using ExpenseModel = MoExpenseTracker.Models.Expense;
 
 namespace MoExpenseTracker.Features.V0.Expense;
 
-class ExpenseDao(DatabaseContext context)
+class ExpenseDataAccess(DatabaseContext context)
 {
     public async Task<ExpenseModel?> ReadExpenseById(int userId, int expenseId)
     {

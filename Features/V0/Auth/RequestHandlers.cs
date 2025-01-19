@@ -6,7 +6,7 @@ namespace MoExpenseTracker.Features.V0.Auth;
 static class RequestHandlers
 {
     public static async Task<IResult> Signup(
-        AuthDao dao,
+        AuthDataAccess dao,
         AuthUtil util,
         IConfiguration configuration,
         SignupDto dto
@@ -36,7 +36,7 @@ static class RequestHandlers
     }
 
     public static async Task<IResult> Login(
-        AuthDao dao,
+        AuthDataAccess dao,
         AuthUtil util,
         IConfiguration configuration,
         LoginDto dto)

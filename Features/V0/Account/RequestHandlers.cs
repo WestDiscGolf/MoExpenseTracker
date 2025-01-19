@@ -6,7 +6,7 @@ namespace MoExpenseTracker.Features.V0.Account;
 static class RequestHandlers
 {
     public static async Task<IResult> ReadProfile(
-        AccountDao accountDao,
+        AccountDataAccess accountDao,
         ICurrentUser currentUser)
     {
         var userId = currentUser.UserId();
@@ -24,8 +24,8 @@ static class RequestHandlers
     }
 
     public static async Task<IResult> UpdateProfile(
-        AccountDao accountDao,
-        AuthDao authDao,
+        AccountDataAccess accountDao,
+        AuthDataAccess authDao,
         ICurrentUser currentUser,
         UpdateProfileDto dto)
     {

@@ -7,7 +7,7 @@ using CategoryModel = MoExpenseTracker.Models.Category;
 
 namespace MoExpenseTracker.Features.V0.Category;
 
-class CategoryDao(DatabaseContext context)
+class CategotyDataAccess(DatabaseContext context)
 {
     public async Task<CategoryModel?> ReadCategoryByName(int userId, string cateegoryName)
     {

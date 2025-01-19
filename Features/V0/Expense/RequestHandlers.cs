@@ -10,8 +10,8 @@ namespace MoExpenseTracker.Features.V0.Expense;
 static class RequestHandlers
 {
     public static async Task<IResult> CreateExpense(
-        ExpenseDao expenseDao,
-        CategoryDao categoryDao,
+        ExpenseDataAccess expenseDao,
+        CategotyDataAccess categoryDao,
         ICurrentUser currentUser,
         CreateExpenseDto dto)
     {
@@ -55,7 +55,7 @@ static class RequestHandlers
     }
 
     public static async Task<IResult> ListExpenses(
-        ExpenseDao expenseDao,
+        ExpenseDataAccess expenseDao,
         ICurrentUser currentUser,
         int pageNumber = 1,
         int pageSize = 10,
@@ -75,7 +75,7 @@ static class RequestHandlers
     }
 
     public static async Task<IResult> ReadExpense(
-        ExpenseDao expenseDao,
+        ExpenseDataAccess expenseDao,
         ICurrentUser currentUser,
         int expenseId)
     {
@@ -92,8 +92,8 @@ static class RequestHandlers
     }
 
     public static async Task<IResult> UpdateExpense(
-        ExpenseDao expenseDao,
-        CategoryDao categoryDao,
+        ExpenseDataAccess expenseDao,
+        CategotyDataAccess categoryDao,
         ICurrentUser currentUser,
         int expenseId,
         UpdateExpenseDto dto)
