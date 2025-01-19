@@ -37,14 +37,16 @@ static class RequestHandlers
             return Results.Unauthorized();
         }
 
+        dto.Email = dto.Email.ToLower();
+
         var emailUser = await authDao.GetUserByEmail(dto.Email);
-        if (emailUser is not null && !emailUser.Email.Equals(user.Email))
+        if (emailUser is not null && emailUser.Id != user.Id)
         {
             return Results.Ok<FailureResponse>(new("Email already taken"));
         }
 
         user.Name = dto.Name;
-        user.Email = dto.Email.ToLower();
+        user.Email = dto.Email;
         user.UpdatedAt = DateTime.UtcNow;
 
         var updatedUser = await accountDao.UpdateProfile(user);
