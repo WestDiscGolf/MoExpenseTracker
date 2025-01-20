@@ -91,15 +91,16 @@ Most contains the first implementations
 
 These are the responses I had from reddit and discord (dotnet/csharp) group about this app and I am looking forward to integrate them in this version of the app.
 
-- api versioning
-- for searching add
-  - pagination
-  - filters and sorting
-- rename controllers into handlers (not to miscommunicate that they are class "controllers")
-- refactor the user id check in the request handlers and pass it as a dependency or endpoint filter
-- use dateonly for the expense data
-- use a middleware or some sort to validate the authentication and don't inject the http context
-- lowercase user data on insert and updated, especiall email, name, description, etc
-- return every created/updated record, this way an extra db call will be saved
-- when checking if the email is used on profile update, compare the user id as rather if the result is not null
-- reduce the logic in the request handlers \*
+- api versioning ✅
+- rename controllers into handlers (not to miscommunicate that they are class "controllers") ✅
+- refactor to use endpoint filter for all validation ✅
+- refactor the content of the program.cs into another file ✅
+- use dateonly for the expense data ✅
+- lowercase user data on insert and update, especially email, description, etc ✅
+- for searching, implement filters and sorting and pagination ✅
+  - issue: could not search for an expense by text in the description ❌
+- refactor the user id check in the request handlers and pass it as a dependency or endpoint filter ✅
+- use a middleware or some sort to validate the authentication and don't inject the http context ✅
+- return every created/updated record, this way an extra db call will be saved ✅
+- reduce the logic in the request handlers
+- when checking if the email is used on profile update, compare the user id rather when the result is not null ✅
