@@ -83,6 +83,10 @@ MISC (extra information, won't hurt to watch, read or run through)
 - [IResult/Results/TypedResult or IActionResult/ActionResult/controllerBase methods?](https://www.reddit.com/r/dotnet/comments/172wumc/iresultresultstypedresult_or/) (difference between IResults, ITypeResults, ...)
 - [.NET dependency injection](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection#service-lifetimes) (difference between scoped, singleton, transcient)
 
+## V0
+
+Most contains the first implementations
+
 ## V1 updates
 
 These are the responses I had from reddit and discord (dotnet/csharp) group about this app and I am looking forward to integrate them in this version of the app.
